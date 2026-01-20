@@ -2,7 +2,7 @@ function CreatePostForm() {
     async function handleSubmit(e) {
         e.preventDefault();
 
-        console.log("testing");
+        
 
     }
 
