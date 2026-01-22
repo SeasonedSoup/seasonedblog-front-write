@@ -1,4 +1,14 @@
+import { useState } from "react";
+
 function SignUpForm() {
+    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    async function signup() {
+        const url = "http://localhost:8000/signup"
+
+    }
     return (
         <>
             <h1>Sign-Up Form</h1>

@@ -1,9 +1,9 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import CreatePostForm from './CreatePost.jsx'
+import LoginForm from './components/LoginForm'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <CreatePostForm/>
+    <LoginForm/>
   </StrictMode>,
 )
