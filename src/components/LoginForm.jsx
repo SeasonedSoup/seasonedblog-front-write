@@ -6,16 +6,25 @@ function LoginForm() {
 
     async function login() {
         //test
-        const url = "http://localhost:8000/login"
+        const url = "http://localhost:8000/api/login"
 
         try {
-            const response = await fetch(url);
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    'Content-Type': "application/json" 
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                }) 
+            });
             if (!response.ok) {
                 throw new Error(`Response status: ${response.status}`);
             }
 
-            const result = await response.json();
-            console.log(result)
+            const token = await response.json();
+            localStorage.setItem("token", token)
         } catch (error) {
             console.log(error);
         }
