@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 function LoginForm() {
-    const [email, setEmail] = useState("")
+    const [name, setName] = useState("")
     const [password, setPassword] = useState("")
 
-    async function login() {
-        //test
+    async function login(e) {
+        e.preventDefault();
         const url = "http://localhost:8000/api/login"
 
         try {
@@ -15,16 +15,19 @@ function LoginForm() {
                     'Content-Type': "application/json" 
                 },
                 body: JSON.stringify({
-                    email,
+                    name,
                     password
                 }) 
             });
+
+            console.log(response);
             if (!response.ok) {
                 throw new Error(`Response status: ${response.status}`);
             }
 
             const token = await response.json();
             localStorage.setItem("token", token)
+            console.log("You got a token!")
         } catch (error) {
             console.log(error);
         }
@@ -34,14 +37,14 @@ function LoginForm() {
         <>
             <h1>Log-in Form</h1>
 
-            <form action="#" method="POST">
+            <form method="POST" onSubmit={login}>
                 <label htmlFor="email">Email </label>
-                <input type="email" name="email" id="email" onChange={setEmail} />
+                <input type="email" name="email" id="email" onChange={(e) => setName(e.target.value)}/>
 
                 <label htmlFor="password">Password: </label>
-                <input type="password" name="password" id="password" onChange={setPassword}/>
+                <input type="password" name="password" id="password" onChange={(e) => setPassword(e.target.value)}/>
         
-                <button onSubmit={login}>Submit</button>
+                <button>Submit</button>
             </form>
         </>
     )
