@@ -1,8 +1,10 @@
 import { useState } from "react";
+import {useNavigate} from "react-router";
 
 function LoginForm() {
-    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const navigate = useNavigate();
 
     async function login(e) {
         e.preventDefault();
@@ -15,7 +17,7 @@ function LoginForm() {
                     'Content-Type': "application/json" 
                 },
                 body: JSON.stringify({
-                    name,
+                    email,
                     password
                 }) 
             });
@@ -25,11 +27,13 @@ function LoginForm() {
                 throw new Error(`Response status: ${response.status}`);
             }
 
-            const token = await response.json();
-            localStorage.setItem("token", token)
+            const data = await response.json();
+            localStorage.setItem("token", data.token)
             console.log("You got a token!")
-        } catch (error) {
-            console.log(error);
+            navigate("/")
+        } catch (err) {
+            console.error(err);
+            return alert("Error:", err)
         }
     }
 
@@ -39,7 +43,7 @@ function LoginForm() {
 
             <form method="POST" onSubmit={login}>
                 <label htmlFor="email">Email </label>
-                <input type="email" name="email" id="email" onChange={(e) => setName(e.target.value)}/>
+                <input type="email" name="email" id="email" onChange={(e) => setEmail(e.target.value)}/>
 
                 <label htmlFor="password">Password: </label>
                 <input type="password" name="password" id="password" onChange={(e) => setPassword(e.target.value)}/>

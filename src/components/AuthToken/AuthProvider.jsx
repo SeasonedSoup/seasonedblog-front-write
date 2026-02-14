@@ -8,6 +8,13 @@ export const AuthProvider = ({children}) => {
     
     async function verifyAuth() {
         const token = localStorage.getItem("token");
+
+        if(!token) {
+            setLoading(false);
+            console.log("no token found");
+            return;
+        }
+
         const url = "http://localhost:8000/api/"
         try {
             const response = await fetch(url, {
@@ -23,15 +30,16 @@ export const AuthProvider = ({children}) => {
             }
 
             const result = await response.json();
-            return result;
+
+            setUser(result);
         } catch (err) {
             console.error(err);
         } finally {
             setLoading(false)
         }
     }
-    //call useEffect
     useEffect(() => {
+        console.log("Here is where we verify you everytime")
         verifyAuth();
     }, []);
 
