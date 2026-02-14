@@ -9,6 +9,7 @@ function MainPosts() {
         <div>
             <h1>THIS IS WHERE THE MAIN POSTS ARE</h1>
             {user ? <h2>Welcome, {user?.username} {user.email} </h2> : <h2>Please log in</h2>}
+            {user ? <a href="/post">Create a post here!</a>: ""}
         </div>
     )
 }
