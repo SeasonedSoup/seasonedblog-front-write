@@ -1,11 +1,12 @@
 import { useState } from "react";
 import {useNavigate} from "react-router";
+import { useAuth } from "./AuthToken/AuthContext";
 
 function LoginForm() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate();
-
+    const {verifyAuth} = useAuth();
     async function login(e) {
         e.preventDefault();
         const url = "http://localhost:8000/api/login"
@@ -29,7 +30,9 @@ function LoginForm() {
 
             const data = await response.json();
             localStorage.setItem("token", data.token)
+
             console.log("You got a token!")
+            verifyAuth();
             navigate("/")
         } catch (err) {
             console.error(err);

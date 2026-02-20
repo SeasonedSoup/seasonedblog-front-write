@@ -1,25 +1,51 @@
 import { useState } from "react";
+import { useAuth } from "./AuthToken/AuthContext";
+import { useNavigate } from "react-router";
+
 
 function CreatePostForm() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
+    const {user} = useAuth();
+    const navigate = useNavigate();
 
     async function handleSubmit(e) {
         e.preventDefault();
+
+        if (user.role !== 'AUTHOR') {
+            return alert("YOU ARE NOT AN AUTHOR TEST")
+        }
+
+
         const url = "http://localhost:8000/api/post"
+        const token = localStorage.getItem("token")
 
         try {
-            const response = fetch(url, {
+            const response = await fetch(url, {
                 method: "POST",
-                
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
-            })
+                body: JSON.stringify({
+                    title,
+                    content
+                })
+            });
+            if (!response.ok) {
+                const result = await response.json();
+                console.log(result.message)
+                throw new Error(response.status)
+            }
+
+            const result = await response.json();
+            console.log(result.message);
+            navigate('/')
+            
+
         } catch (err) {
             console.error("Error:", err)
         }
-
     }
 
     return (
@@ -28,10 +54,10 @@ function CreatePostForm() {
 
             <form action="#" method="post" onSubmit={handleSubmit}>
                 <label htmlFor="title">Title: </label>
-                <input type="text" name="title" id="title" required />
+                <input type="text" name="title" id="title" required onChange={(e) => setTitle(e.target.value)} />
 
                 <label htmlFor="content">Content: </label>
-                <input type="text" name="content" id="content" required />
+                <input type="text" name="content" id="content" required onChange={(e) => setContent(e.target.value)} />
 
                 <button>Submit</button>
             </form>
