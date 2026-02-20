@@ -6,7 +6,8 @@ import MainPosts from './components/MainPosts'
 import LoginForm from './components/LoginForm'
 import SignUpForm from './components/SignUpForm'
 import CreatePostForm from './components/CreatePost'
-import EditPost from './components/AuthToken/EditPost'
+import EditPostList from './components/AuthToken/EditPostList'
+import EditPostForm from './components/AuthToken/EditPostForm'
 import { AuthProvider } from './components/AuthToken/AuthProvider'
 
 const router = createBrowserRouter([
@@ -27,9 +28,14 @@ const router = createBrowserRouter([
     element: <CreatePostForm/>
   },
   {
+    path: "/edit/:id",
+    element: <EditPostForm/>
+  },
+  {
     path: "/edit",
-    element: <EditPost/>
-  }
+    element: <EditPostList/>
+  },
+
 
 ])
 createRoot(document.getElementById('root')).render(

@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 function EditPostList() {
     const [loading, setLoading] = useState(true);
     const [posts, setPosts] = useState([]);
+    const [selectedId, setSelectedId] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchPosts() {
@@ -28,13 +31,20 @@ function EditPostList() {
         fetchPosts();
     }, []);
 
+    function navigateEditPost(e) {
+        e.preventDefault();
+
+        if (selectedId) {
+            navigate(`/edit/${selectedId}`);
+        }
+    }
 
     return (
         <>
             {loading ? <p>Loading...</p> : <h1>THIS IS WHERE POSTS ARE LOCATED IN THIS DROPDOWN</h1>} 
             {posts.length > 0 ? (
-                <form action="">
-                    <select>
+                <form onSubmit={navigateEditPost}>
+                    <select onChange={(e) => setSelectedId(e.target.value)}>
                         {posts.map((post) => (
                             <option key={post.id} value={post.id}>
                                 {post.title}
