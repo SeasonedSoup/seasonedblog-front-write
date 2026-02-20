@@ -6,6 +6,7 @@ import MainPosts from './components/MainPosts'
 import LoginForm from './components/LoginForm'
 import SignUpForm from './components/SignUpForm'
 import CreatePostForm from './components/CreatePost'
+import EditPost from './components/AuthToken/EditPost'
 import { AuthProvider } from './components/AuthToken/AuthProvider'
 
 const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/post",
     element: <CreatePostForm/>
+  },
+  {
+    path: "/edit",
+    element: <EditPost/>
   }
 
 ])
