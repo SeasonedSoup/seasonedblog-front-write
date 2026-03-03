@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 function EditPostList() {
     const [loading, setLoading] = useState(true);
     const [posts, setPosts] = useState([]);
-    const [selectedId, setSelectedId] = useState("");
+    const [selectedId, setSelectedId] = useState("1");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,19 +23,22 @@ function EditPostList() {
                 //the fetched posts
                 setPosts(result);
                 setLoading(false);
+                console.log(result);
             } catch(err) {
                 console.error("Error: ", err)
             }
         }
         
         fetchPosts();
+       
     }, []);
 
     function navigateEditPost(e) {
         e.preventDefault();
 
         if (selectedId) {
-            navigate(`/edit/${selectedId}`);
+            const selectedPost = posts.find((post) => post.id === parseInt(selectedId))
+            navigate(`/${selectedId}/edit`, {state: selectedPost});
         }
     }
 
