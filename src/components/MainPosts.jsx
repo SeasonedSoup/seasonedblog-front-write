@@ -14,6 +14,7 @@ function MainPosts() {
                 {user ? <h2>Welcome, {user?.username} {user.email} </h2> : <h2>Please log in</h2>}
                 {user ? <a href="/post">Create a post here!</a> : ""}
                 {user ? <a href="/edit">Edit your posts here</a> : ""}
+                {user ? <a href="/view"> View your posts here!</a> : ""}
             </div>
             {user ? <Logout/> : <LoginForm/>}
         </>

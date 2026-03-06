@@ -8,7 +8,9 @@ import SignUpForm from './components/SignUpForm'
 import CreatePostForm from './components/CreatePost'
 import EditPostList from './components/AuthToken/EditPostList'
 import EditPostForm from './components/AuthToken/EditPostForm'
+import ViewPosts from './components/ViewPosts'
 import { AuthProvider } from './components/AuthToken/AuthProvider'
+import "./index.css"
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,10 @@ const router = createBrowserRouter([
     path: "/edit",
     element: <EditPostList/>
   },
+  {
+    path: "/view",
+    element: <ViewPosts/>
+  }
 
 
 ])

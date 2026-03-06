@@ -57,7 +57,7 @@ function EditPostList() {
 
                     <button>Edit this post</button>
                 </form>
-            ) : <p>No posts found to edit</p>} 
+            ) : <p>No posts found to edit</p> } 
         </>
     )
 }
