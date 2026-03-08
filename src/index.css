@@ -9,4 +9,5 @@
     padding: 12px;
     border-radius: 8px;
     transition: padding 0.1s ease;
+    min-width: 400px;
 }
