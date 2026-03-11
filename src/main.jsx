@@ -9,6 +9,7 @@ import CreatePostForm from './components/CreatePost'
 import EditPostList from './components/AuthToken/EditPostList'
 import EditPostForm from './components/AuthToken/EditPostForm'
 import ViewPosts from './components/ViewPosts'
+import DeletePostList from './components/AuthToken/DeletePostList'
 import { AuthProvider } from './components/AuthToken/AuthProvider'
 import "./index.css"
 
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
   {
     path: "/view",
     element: <ViewPosts/>
+  },
+  {
+    path: "/delete",
+    element: <DeletePostList/>
   }
 
 

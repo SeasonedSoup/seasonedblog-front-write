@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-
-function EditPostList() {
+function DeletePostList() {
     const [loading, setLoading] = useState(true);
     const [posts, setPosts] = useState([]);
     const [selectedId, setSelectedId] = useState("1");
@@ -34,20 +33,29 @@ function EditPostList() {
        
     }, []);
 
-    function navigateEditPost(e) {
+    async function DeletePost(e) {
         e.preventDefault();
 
-        if (selectedId) {
-            const selectedPost = posts.find((post) => post.id === parseInt(selectedId))
-            navigate(`/${selectedId}/edit`, {state: selectedPost});
-        }
+        const url = "http://localhost:8000/api/delete"
+
+        const response = await fetch(url, {
+            method: "DELETE", 
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({id: selectedId})
+        })
+
+        const result = await response.json()
+        console.log(result)
+        navigate("/")
     }
 
     return (
         <>
             {loading ? <p>Loading...</p> : <h1>THIS IS WHERE POSTS ARE LOCATED IN THIS DROPDOWN</h1>} 
             {posts.length > 0 ? (
-                <form onSubmit={navigateEditPost}>
+                <form onSubmit={DeletePost}>
                     <select onChange={(e) => setSelectedId(e.target.value)}>
                         {posts.map((post) => (
                             <option key={post.id} value={post.id}>
@@ -56,11 +64,11 @@ function EditPostList() {
                         ))}
                     </select>
 
-                    <button>Edit this post</button>
+                    <button>Delete this post</button>
                 </form>
-            ) : <p>No posts found to edit</p> } 
+            ) : <p>No posts found to delete</p> } 
         </>
     )
 }
 
-export default EditPostList;
+export default DeletePostList;

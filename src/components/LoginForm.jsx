@@ -9,6 +9,7 @@ function LoginForm() {
     const {verifyAuth} = useAuth();
     async function login(e) {
         e.preventDefault();
+        console.log("logging in")
         const url = "http://localhost:8000/api/login"
 
         try {

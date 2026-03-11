@@ -28,26 +28,28 @@ function ViewPosts() {
         fetchPosts();
     }, []);
 
-    async function togglePublishStatus(id, publishStatus) {
-        if (publishStatus === true) {
+    async function togglePublishStatus(id, published) {
+        if (published === true) {
             const post = publishedPosts.find(p => p.id === id)
             setPublishedPosts(prev => prev.filter(p => p.id !== id))
             setUnpublishedPosts(prev => [...prev, {...post, published: false}])
         }  else {
-            const post = publishedPosts.find(p => p.id === id)
+            const post = unpublishedPosts.find(p => p.id === id)
             setUnpublishedPosts(prev => prev.filter(p => p.id !== id))
             setPublishedPosts(prev => [...prev, {...post, published: true}])
         }
 
 
         const url = "http://localhost:8000/api/togglepubstatus"
-
+        published = !published
         const response = await fetch(url, {
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                publishStatus
+                id,
+                published
             })
     
         })
@@ -65,8 +67,8 @@ function ViewPosts() {
                         publishedPosts.map(publishedPost => {
                         return (
                         <div key={publishedPost.id} >
-                        <h1> {publishedPost.title}</h1>
-                        <button onClick={() => togglePublishStatus(publishedPost.id, true)}>Unpublish</button>
+                            <h1> {publishedPost.title}</h1>
+                            <button onClick={() => togglePublishStatus(publishedPost.id, true)}>Unpublish</button>
                         </div>
                         )
                     })
@@ -80,8 +82,8 @@ function ViewPosts() {
                         unpublishedPosts.map(unpublishedPost => {
                             return (
                             <div  key={unpublishedPost.id} >
-                            <h1> {unpublishedPost.title}</h1>
-                            <button onClick={() => togglePublishStatus(unpublishedPost.id, false)}>Publish</button>
+                                <h1> {unpublishedPost.title}</h1>
+                                <button onClick={() => togglePublishStatus(unpublishedPost.id, false)}>Publish</button>
                             </div>
                             )
                         })

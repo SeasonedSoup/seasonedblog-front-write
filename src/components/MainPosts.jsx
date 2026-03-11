@@ -15,6 +15,7 @@ function MainPosts() {
                 {user ? <a href="/post">Create a post here!</a> : ""}
                 {user ? <a href="/edit">Edit your posts here</a> : ""}
                 {user ? <a href="/view"> View your posts here!</a> : ""}
+                {user ? <a href="/delete"> Delete your posts here!</a> : ""}
             </div>
             {user ? <Logout/> : <LoginForm/>}
         </>
