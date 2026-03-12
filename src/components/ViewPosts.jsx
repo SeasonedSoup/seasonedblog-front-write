@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 function ViewPosts() {
     const [publishedPosts, setPublishedPosts] = useState([]);
     const [unpublishedPosts, setUnpublishedPosts] = useState([]);
     const [loading, setLoading] = useState(true)
+    const navigate = useNavigate()
 
     useEffect(() => {
         async function fetchPosts() {
@@ -57,6 +59,10 @@ function ViewPosts() {
         const result = response.json();
         console.log(result)
     }
+
+    function navigateToPost(id) {
+        navigate(`/view/${id}`)
+    }
   
     if (loading !== true) {
         return (
@@ -69,6 +75,7 @@ function ViewPosts() {
                         <div key={publishedPost.id} >
                             <h1> {publishedPost.title}</h1>
                             <button onClick={() => togglePublishStatus(publishedPost.id, true)}>Unpublish</button>
+                            <button onClick={() => navigateToPost(publishedPost.id)}>View</button>
                         </div>
                         )
                     })
@@ -84,6 +91,7 @@ function ViewPosts() {
                             <div  key={unpublishedPost.id} >
                                 <h1> {unpublishedPost.title}</h1>
                                 <button onClick={() => togglePublishStatus(unpublishedPost.id, false)}>Publish</button>
+                                <button onClick={() => navigateToPost(unpublishedPost.id)}>View</button>
                             </div>
                             )
                         })
