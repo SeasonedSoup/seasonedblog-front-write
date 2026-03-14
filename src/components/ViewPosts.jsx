@@ -60,8 +60,16 @@ function ViewPosts() {
         console.log(result)
     }
 
-    function navigateToPost(id) {
-        navigate(`/view/${id}`)
+    function navigateToPost(id, published) {
+        let selectedPost
+
+        if (published) {
+            selectedPost = publishedPosts.find((post) => post.id == id)
+        } else {
+            selectedPost = unpublishedPosts.find((post) => post.id == id)
+        }
+
+        navigate(`/view/${id}`, {state: selectedPost})
     }
   
     if (loading !== true) {
@@ -75,7 +83,7 @@ function ViewPosts() {
                         <div key={publishedPost.id} >
                             <h1> {publishedPost.title}</h1>
                             <button onClick={() => togglePublishStatus(publishedPost.id, true)}>Unpublish</button>
-                            <button onClick={() => navigateToPost(publishedPost.id)}>View</button>
+                            <button onClick={() => navigateToPost(publishedPost.id, true)}>View</button>
                         </div>
                         )
                     })
@@ -91,7 +99,7 @@ function ViewPosts() {
                             <div  key={unpublishedPost.id} >
                                 <h1> {unpublishedPost.title}</h1>
                                 <button onClick={() => togglePublishStatus(unpublishedPost.id, false)}>Publish</button>
-                                <button onClick={() => navigateToPost(unpublishedPost.id)}>View</button>
+                                <button onClick={() => navigateToPost(unpublishedPost.id, false)}>View</button>
                             </div>
                             )
                         })
