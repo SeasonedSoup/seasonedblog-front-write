@@ -3,9 +3,9 @@ import { Logout } from "./Logout";
 import LoginForm from "./LoginForm";
 
 function MainPosts() {
-    const {user, loading} = useAuth();
+    const {user, userLoading} = useAuth();
 
-     if (loading) return <div>Loading...</div>;
+     if (userLoading) return <div>Loading...</div>;
      
     return (
         <> 

@@ -4,13 +4,13 @@ import { AuthContext } from "./AuthContext";
 
 export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [userLoading, setUserLoading] = useState(true);
     
     async function verifyAuth() {
         const token = localStorage.getItem("token");
 
         if(!token) {
-            setLoading(false);
+            setUserLoading(false);
             console.log("no token found");
             return;
         }
@@ -35,7 +35,7 @@ export const AuthProvider = ({children}) => {
         } catch (err) {
             console.error(err);
         } finally {
-            setLoading(false)
+            setUserLoading(false)
         }
     }
     useEffect(() => {
@@ -44,7 +44,7 @@ export const AuthProvider = ({children}) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{user, setUser, loading, verifyAuth}}>
+        <AuthContext.Provider value={{user, setUser, userLoading, verifyAuth}}>
             {children}
         </AuthContext.Provider>
     )

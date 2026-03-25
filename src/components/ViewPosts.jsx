@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-
+import { useAuth } from "./AuthToken/AuthContext";
 function ViewPosts() {
     const [publishedPosts, setPublishedPosts] = useState([]);
     const [unpublishedPosts, setUnpublishedPosts] = useState([]);
     const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
+    const {user, userLoading} = useAuth();
 
     useEffect(() => {
-        async function fetchPosts() {
-            const url = "http://localhost:8000/api/posts"
+        async function fetchAuthorPosts() {
+            const url = `http://localhost:8000/api/yourposts?id=${user.id}`
 
             const response = await fetch(url, {
                 headers: {
                     "Content-Type": "application/json"          
-                }
+                },
             })
 
             const posts = await response.json();
@@ -27,8 +28,8 @@ function ViewPosts() {
             setLoading(false)
         }
 
-        fetchPosts();
-    }, []);
+        fetchAuthorPosts();
+    }, [user, user?.id, userLoading]);
 
     async function togglePublishStatus(id, published) {
         if (published === true) {
