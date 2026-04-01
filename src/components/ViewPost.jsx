@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router";
-
+import { API_URL } from "../apiUrl";
 function ViewPost() {
     const {id} = useParams();
     const location = useLocation();
@@ -12,7 +12,7 @@ function ViewPost() {
         console.log("FETCH TRIGGERED");
         async function fetchComments() {
             console.log("FETCHING COMMENTS...")
-            const url = `http://localhost:8000/api/comments/${id}`
+            const url = `${API_URL}/api/comments/${id}`
 
             const response = await fetch(url, {
                 headers: {
@@ -30,7 +30,7 @@ function ViewPost() {
 
     async function deleteComment(commentId) {
         console.log("DELETING ID", commentId)
-        const url = `http://localhost:8000/api/delete/${commentId}`
+        const url = `${API_URL}/api/delete/${commentId}`
         const token = localStorage.getItem("token")
 
         const response = await fetch(url, {

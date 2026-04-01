@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {useNavigate} from "react-router";
 import { useAuth } from "./AuthToken/AuthContext";
+import { API_URL } from "../apiUrl";
 
 function LoginForm() {
     const [email, setEmail] = useState("")
@@ -10,7 +11,7 @@ function LoginForm() {
     async function login(e) {
         e.preventDefault();
         console.log("logging in")
-        const url = "http://localhost:8000/api/login"
+        const url = `${API_URL}/api/login`
 
         try {
             const response = await fetch(url, {

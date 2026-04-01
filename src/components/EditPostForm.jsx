@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router";
-
+import { API_URL } from "../apiUrl";
 function EditPostForm() {
     const location = useLocation();
     const post = location.state
@@ -12,7 +12,7 @@ function EditPostForm() {
 
     async function editPost(e) {
         e.preventDefault();
-        const url = `http://localhost:8000/api/${id}/edit`
+        const url = `${API_URL}/api/${id}/edit`
         try {
             const response = await fetch( url, {
                 method: "PUT",

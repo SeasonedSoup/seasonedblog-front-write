@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "./AuthToken/AuthContext";
 import { useNavigate } from "react-router";
-
+import { API_URL } from "../apiUrl";
 
 function CreatePostForm() {
     const [title, setTitle] = useState("");
@@ -17,7 +17,7 @@ function CreatePostForm() {
         }
 
 
-        const url = "http://localhost:8000/api/post"
+        const url = `${API_URL}/api/post`
         const token = localStorage.getItem("token")
 
         try {

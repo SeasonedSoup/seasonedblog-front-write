@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { API_URL } from "../apiUrl";
 function DeletePostList() {
     const [loading, setLoading] = useState(true);
     const [posts, setPosts] = useState([]);
@@ -8,7 +9,7 @@ function DeletePostList() {
 
     useEffect(() => {
         async function fetchPosts() {
-            const url = "http://localhost:8000/api/posts"
+            const url = `${API_URL}/api/posts`
             console.log("fetching")
 
             try {
@@ -36,7 +37,7 @@ function DeletePostList() {
     async function DeletePost(e) {
         e.preventDefault();
 
-        const url = "http://localhost:8000/api/delete"
+        const url = `${API_URL}/api/delete`
 
         const response = await fetch(url, {
             method: "DELETE", 

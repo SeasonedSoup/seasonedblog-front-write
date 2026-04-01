@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { API_URL } from "../apiUrl";
 
 function EditPostList() {
     const [loading, setLoading] = useState(true);
@@ -9,7 +10,7 @@ function EditPostList() {
 
     useEffect(() => {
         async function fetchPosts() {
-            const url = "http://localhost:8000/api/posts"
+            const url = `${API_URL}/api/posts`
             console.log("fetching")
 
             try {

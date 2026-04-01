@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "./AuthToken/AuthContext";
+import { API_URL } from "../apiUrl";
+
 function ViewPosts() {
     const [publishedPosts, setPublishedPosts] = useState([]);
     const [unpublishedPosts, setUnpublishedPosts] = useState([]);
@@ -10,7 +12,7 @@ function ViewPosts() {
 
     useEffect(() => {
         async function fetchAuthorPosts() {
-            const url = `http://localhost:8000/api/yourposts?id=${user.id}`
+            const url = `${API_URL}/api/yourposts?id=${user.id}`
 
             const response = await fetch(url, {
                 headers: {
@@ -43,7 +45,7 @@ function ViewPosts() {
         }
 
 
-        const url = "http://localhost:8000/api/togglepubstatus"
+        const url = `${API_URL}/api/togglepubstatus`
         published = !published
         const response = await fetch(url, {
             method: "PATCH",
