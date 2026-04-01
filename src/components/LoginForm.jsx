@@ -11,6 +11,7 @@ function LoginForm() {
     async function login(e) {
         e.preventDefault();
         console.log("logging in")
+        console.log(API_URL)
         const url = `${API_URL}/api/login`
 
         try {
